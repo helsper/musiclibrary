@@ -32,7 +32,7 @@ public class Album {
     LocalDate releaseDate;
 
     @NonNull
-    Integer numberOfSeats;
+    Integer numberOfSongs;
 
     @NotNull
     @Enumerated(EnumType.STRING)
