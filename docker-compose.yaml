@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  mysql_db:
+    image: mysql:8.0.29
+    container_name: mysql_db
+    hostname: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sfsyrgfq24f
+    volumes: 
+        - dbdata:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  dbdata:
+    driver: local
