@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -41,6 +42,9 @@ public class Album {
     @Lob
     @Column(name = "description", columnDefinition = "LONGTEXT")
     String description;
+
+    @ElementCollection
+    List<Integer> ratings;
 
     @Lob
     @Column(name = "image", columnDefinition = "BLOB")
