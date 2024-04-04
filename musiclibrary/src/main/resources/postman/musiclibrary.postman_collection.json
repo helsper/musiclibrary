@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "9aa32a70-f95f-45d4-8e06-5d4594d667ce",
+		"name": "musiclibrary",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21744528"
+	},
+	"item": [
+		{
+			"name": "Album",
+			"item": [
+				{
+					"name": "postAlbum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"post request should be valid\", function() {      \r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.collectionVariables.set('idAlbum', responseJson.id);\r",
+									"    pm.collectionVariables.set('invalidAlbumId', responseJson.id+1);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Lomon Yard\",\r\n        \"artist\": \"Fool's Garden\",\r\n        \"releaseDate\": \"1980-07-25\",\r\n        \"numberOfSongs\": 18,\r\n        \"genre\": \"POP\",\r\n        \"description\": \"Lemon tree is the best song ever produced\",\r\n        \"image\": null,\r\n        \"ratings\": [\r\n            5,\r\n            3\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postAlbumInvalidParameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"post request should be invalid\", function() {\r",
+									"    pm.response.to.be.error;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"\",\r\n        \"artist\": \"Fool's Garden\",\r\n        \"releaseDate\": \"1980-07-25\",\r\n        \"numberOfSongs\": 18,\r\n        \"genre\": \"POP\",\r\n        \"description\": \"Lemon tree is the best song ever produced\",\r\n        \"image\": null,\r\n        \"ratings\": [\r\n            5,\r\n            3\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"get request should be valid\", function() {\r",
+									"    pm.response.to.be.ok;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/albums/{{idAlbum}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{idAlbum}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumByWrongId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"get request should be invalid\", function() {\r",
+									"    pm.response.to.be.error;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/albums/{{invalidAlbumId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{invalidAlbumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAlbums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"get request should be valid\", function() {\r",
+									"    pm.response.to.be.ok;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWSlozV2c1N201V1N3dW5TazJYam9JTktnYVBhdFF3c05EV0drNkZ0Y244In0.eyJleHAiOjE2NjU1NzQ1NTMsImlhdCI6MTY2NTU3NDI1MywiYXV0aF90aW1lIjoxNjY1NTc0MjM3LCJqdGkiOiI2MDZlYWNjMS1iYzVkLTQxMTYtODBlOS02YjExYTFjMDY5YTMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4ODgvYXV0aC9yZWFsbXMvcmF1bXBsYW5lciIsInN1YiI6IjU2NDY4NzM5LWQ2MDctNDEwMy1hMTE1LTAxYzkzYzllZWNjZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250ZW5kIiwibm9uY2UiOiJjNzM5NmUxYy04MGQxLTRjZmItODE0OS1jOTYzZDE0YTA1MzMiLCJzZXNzaW9uX3N0YXRlIjoiODE3ODk5YjMtOTRiOS00ODFlLThiMTItNGUzOGJmOTQ0Y2NjIiwiYWNyIjoiMCIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1yYXVtcGxhbmVyIl19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwic2lkIjoiODE3ODk5YjMtOTRiOS00ODFlLThiMTItNGUzOGJmOTQ0Y2NjIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtaWNoYWVsIn0.I2Gi-F9S-g8DGwErAHLPLljq_Q494BsHs2N5dITJPf51-WCJFC_Fqolfa64zonay8c93KdJYQ4bUvCUh4yqkDWJAHhZw5KvMbToQeMdRy4JKMeKA2PzLQMd5fERgTfIh9lwEc-W0LTE28cQCeQjZRCK21H8ZK6XWHW9onY8upbH8z2u4y6OkSH2edI8B7yRwTKC9ZE9MAoxBGx4Mju1wwm7ybnI6entPVWFy0divB_3HgWbSbcYIjFod-GE1anwQQqNQm4pQurI4IUu7kUGXdBW6uhyUV2cYPKv-Thev8M--ahP3nXDyw1qgXzM5pXi414v2IdKBl2PhRU2oZVOBnw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAlbum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"update request should be valid\", function() {\r",
+									"    pm.response.to.be.ok;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": {{idAlbum}},\r\n        \"name\": \"Lomon Yard\",\r\n        \"artist\": \"Fool's Garden\",\r\n        \"releaseDate\": \"1980-07-25\",\r\n        \"numberOfSongs\": 18,\r\n        \"genre\": \"POP\",\r\n        \"description\": \"Lemon tree maaay be the best song ever produced\",\r\n        \"image\": null,\r\n        \"ratings\": [\r\n            5,\r\n            3\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/albums/{{idAlbum}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{idAlbum}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAlbumIdNotEqual",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"update request invalid\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 99,\r\n        \"name\": \"Lomon Yard\",\r\n        \"artist\": \"Fool's Garden\",\r\n        \"releaseDate\": \"1980-07-25\",\r\n        \"numberOfSongs\": 18,\r\n        \"genre\": \"POP\",\r\n        \"description\": \"Lemon tree may be the best song ever produced\",\r\n        \"image\": null,\r\n        \"ratings\": [\r\n            5,\r\n            3\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/albums/{{invalidAlbumId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{invalidAlbumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAlbumById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"post request should be valid\", function() {\r",
+									"    pm.response.to.be.ok; \r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/albums/{{idAlbum}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{idAlbum}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAlbumByInvalidId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"delete request should be invalid\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/albums/{{invalidAlbumId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"albums",
+								"{{invalidAlbumId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idAlbum",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "invalidAlbumId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
