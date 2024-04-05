@@ -2,13 +2,13 @@ package de.helsper.musiclibrary.common.base;
 
 public interface BaseService<T> extends ValidationService<T> {
 
-    public T create(T t);
+    T create(T t);
 
-    public Iterable<T> findAll();
+    Iterable<T> findAll();
 
-    public T findById(Long id);
+    T findById(Long id);
 
-    public T update(Long id, T t);
+    T update(Long id, T t);
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 }
