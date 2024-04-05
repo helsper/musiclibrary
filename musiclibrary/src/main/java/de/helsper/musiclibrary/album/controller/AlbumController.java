@@ -3,9 +3,7 @@ package de.helsper.musiclibrary.album.controller;
 import de.helsper.musiclibrary.album.entity.model.Album;
 import de.helsper.musiclibrary.album.service.AlbumService;
 import jakarta.validation.Valid;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 
