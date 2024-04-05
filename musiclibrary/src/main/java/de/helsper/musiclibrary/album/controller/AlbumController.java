@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("albums")
 public class AlbumController {
 
-    final AlbumService albumService;
+    private final AlbumService albumService;
 
     @PostMapping
     public Album create(@Valid @RequestBody Album album) { return albumService.create(album); }
