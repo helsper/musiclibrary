@@ -34,7 +34,7 @@ class AlbumServiceTest {
     }
 
     @Test
-    void create_WithValidArguments_ShouldReturnReservation() {
+    void create_WithValidArguments_ShouldReturnAlbum() {
         Album expected = Given.getAlbumWithValues();
 
         when(albumRepository.save(any(Album.class))).thenReturn(expected);

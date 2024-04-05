@@ -90,7 +90,7 @@ public class AlbumControllerTest {
     }
 
     @Test
-    public void AlbumController_DeleteAlbumById_ReturnAlbum() throws Exception {
+    public void AlbumController_DeleteAlbumById() throws Exception {
         doNothing().when(albumService).deleteById(1L);
 
         ResultActions response = mockMvc.perform(delete("/albums/1")
