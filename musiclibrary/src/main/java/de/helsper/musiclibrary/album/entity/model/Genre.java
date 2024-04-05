@@ -11,5 +11,5 @@ public enum Genre {
     COUNTRY,
     RAGGAE,
     LATIN,
-    CLASSICAL;
+    CLASSICAL
 }
