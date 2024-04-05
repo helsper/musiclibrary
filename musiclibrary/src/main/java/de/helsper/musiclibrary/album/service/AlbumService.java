@@ -18,8 +18,6 @@ public class AlbumService implements BaseService<Album> {
     private final AlbumRepository albumRepository;
 
     public Album create(Album album) {
-        checkNotNull(album);
-
         album.setId(null);
         Album createdAlbum = albumRepository.save(album);
         log.info("Album with id {} has been created.", createdAlbum.getId());
@@ -39,22 +37,27 @@ public class AlbumService implements BaseService<Album> {
                 .orElseThrow(() -> new ResourceNotFoundException("Album not found with id :" + id));
     }
 
-    public void deleteById(Long id) {
+    public ServiceResponse deleteById(Long id) {
         checkIdNotNull(id);
         checkIdNotNegative(id);
 
         Album albumToDelete = findById(id);
 
         if (isAlbumTooPopularToDelete(albumToDelete)) {
-            throw new ResourceNotFoundException("Album is too popular, it can't be deleted");
+            return new ServiceResponse(false, "Album is too popular, it can't be deleted");
         }
 
-        albumRepository.deleteById(albumToDelete.getId());
-        log.info("Album with id {} has been deleted.", albumToDelete.getId());
+        try {
+            albumRepository.deleteById(albumToDelete.getId());
+            log.info("Album with id {} has been deleted.", albumToDelete.getId());
+
+            return new ServiceResponse(true, "Album deleted successfully");
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Failed to delete album: " + e.getMessage());
+        }
     }
 
     public Album update(Long id, Album album) {
-        checkNotNull(album);
         checkIdNotNull(id);
         checkIdNotNegative(id);
         checkIdEquality(id, album.getId());
@@ -65,7 +68,7 @@ public class AlbumService implements BaseService<Album> {
         return updatedAlbum;
     }
 
-    boolean isAlbumTooPopularToDelete(Album album) {
+    public boolean isAlbumTooPopularToDelete(Album album) {
         OptionalDouble averageRating = calculateAverageRating(album);
         return averageRating.isPresent() && averageRating.getAsDouble() >= 4
                 && album.getRatings().size() > 10;

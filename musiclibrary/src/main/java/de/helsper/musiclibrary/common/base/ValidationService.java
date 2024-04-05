@@ -4,7 +4,7 @@ import de.helsper.musiclibrary.common.exceptions.BadRequestException;
 
 import java.util.Objects;
 
-public interface ValidationService<T> {
+public interface ValidationService {
 
     default void checkIdNotNull(Long id) {
         if (id == null) throw new BadRequestException("ID not found");
@@ -12,10 +12,6 @@ public interface ValidationService<T> {
 
     default void checkIdNotNegative(Long id) {
         if (id < 0) throw new BadRequestException("Invalid ID provided: " + id);
-    }
-
-    default void checkNotNull(T t) {
-        if (t == null) throw new BadRequestException("Given object is null");
     }
 
     default void checkIdEquality(Long id, Long id2) {

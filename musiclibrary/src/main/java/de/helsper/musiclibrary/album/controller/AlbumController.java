@@ -2,7 +2,9 @@ package de.helsper.musiclibrary.album.controller;
 
 import de.helsper.musiclibrary.album.entity.model.Album;
 import de.helsper.musiclibrary.album.service.AlbumService;
+import de.helsper.musiclibrary.album.service.ServiceResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,8 @@ public class AlbumController {
     public Album findById(@PathVariable Long id) { return albumService.findById(id); }
 
     @PutMapping("{id}")
-    public Album update(@PathVariable Long id, @RequestBody Album album) { return albumService.update(id, album); }
+    public Album update(@PathVariable Long id, @NotNull @RequestBody Album album) { return albumService.update(id, album); }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable Long id) { albumService.deleteById(id); }
+    public ServiceResponse delete(@PathVariable Long id) { return albumService.deleteById(id); }
 }

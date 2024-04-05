@@ -1,6 +1,8 @@
 package de.helsper.musiclibrary.common.base;
 
-public interface BaseService<T> extends ValidationService<T> {
+import de.helsper.musiclibrary.album.service.ServiceResponse;
+
+public interface BaseService<T> extends ValidationService {
 
     T create(T t);
 
@@ -10,5 +12,5 @@ public interface BaseService<T> extends ValidationService<T> {
 
     T update(Long id, T t);
 
-    void deleteById(Long id);
+    ServiceResponse deleteById(Long id);
 }

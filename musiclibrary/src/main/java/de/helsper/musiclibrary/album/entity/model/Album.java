@@ -29,10 +29,10 @@ public class Album {
     @NotBlank
     String artist;
 
-    @NonNull
+    @NotNull
     LocalDate releaseDate;
 
-    @NonNull
+    @NotNull
     Integer numberOfSongs;
 
     @NotNull
