@@ -33,6 +33,7 @@ public class AlbumService implements BaseService<Album> {
 
     public Album findById(Long id) {
         checkIdNotNull(id);
+        checkIdNotNegative(id);
 
         return albumRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Album not found with id :" + id));
@@ -40,6 +41,7 @@ public class AlbumService implements BaseService<Album> {
 
     public void deleteById(Long id) {
         checkIdNotNull(id);
+        checkIdNotNegative(id);
 
         Album albumToDelete = findById(id);
 
@@ -54,6 +56,7 @@ public class AlbumService implements BaseService<Album> {
     public Album update(Long id, Album album) {
         checkNotNull(album);
         checkIdNotNull(id);
+        checkIdNotNegative(id);
         checkIdEquality(id, album.getId());
 
         Album updatedAlbum = albumRepository.save(album);
@@ -62,7 +65,7 @@ public class AlbumService implements BaseService<Album> {
         return updatedAlbum;
     }
 
-    private boolean isAlbumTooPopularToDelete(Album album) {
+    boolean isAlbumTooPopularToDelete(Album album) {
         OptionalDouble averageRating = calculateAverageRating(album);
         return averageRating.isPresent() && averageRating.getAsDouble() >= 4
                 && album.getRatings().size() > 10;

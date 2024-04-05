@@ -2,6 +2,7 @@ package de.helsper.musiclibrary.album.controller;
 
 import de.helsper.musiclibrary.album.entity.model.Album;
 import de.helsper.musiclibrary.album.service.AlbumService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +18,7 @@ public class AlbumController {
     final AlbumService albumService;
 
     @PostMapping
-    public Album create(@RequestBody Album album) { return albumService.create(album); }
+    public Album create(@Valid @RequestBody Album album) { return albumService.create(album); }
 
     @GetMapping
     public Iterable<Album> findAll() { return albumService.findAll(); }
