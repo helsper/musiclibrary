@@ -35,18 +35,18 @@ public class Given {
 
     public static Iterable<Album> getSeveralAlbums() {
         List<Album> albums = new ArrayList<>();
-        LocalDate releaseDate = LocalDate.of(1995, 9, 29);
+        LocalDate releaseDate = LocalDate.of(1981, 9, 29);
         LocalDate created = LocalDate.of(2024,4,4);
         LocalDate updated = LocalDate.of(2024,4,5);
 
         Album album = new Album();
         album.setId(2L);
-        album.setName("Morning Glory");
-        album.setArtist("Oasis");
+        album.setName("4");
+        album.setArtist("Foreigner");
         album.setReleaseDate(releaseDate);
-        album.setNumberOfSongs(13);
+        album.setNumberOfSongs(10);
         album.setGenre(Genre.ROCK);
-        album.setDescription("(What’s the Story) Morning Glory? (englisch für „(Was ist das für eine Geschichte) Morgenlatte?“) ist das zweite Musikalbum der britischen Musikgruppe Oasis und wurde im September 1995 veröffentlicht. Die Band übertraf den Erfolg ihres Debütalbums bei weitem, insbesondere mit den Singles Wonderwall und Don’t Look Back in Anger konnte sie weltweit Erfolge verbuchen.");
+        album.setDescription("4 ist das vierte Studioalbum der US-amerikanischen/britischen Rock-Band Foreigner.");
         album.setRatings(List.of(4,5,3));
         album.setImage(null);
         album.setCreated(created);
