@@ -10,6 +10,10 @@ public interface ValidationService<T> {
         if (id == null) throw new BadRequestException("ID not found");
     }
 
+    default void checkIdNotNegative(Long id) {
+        if (id < 0) throw new BadRequestException("Invalid ID provided: " + id);
+    }
+
     default void checkNotNull(T t) {
         if (t == null) throw new BadRequestException("Given object is null");
     }
