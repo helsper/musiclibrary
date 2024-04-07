@@ -1,10 +1,18 @@
-<li class="relative perspective-1000 bg-transparent">
-  <div class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-    <img src="assets/images/defaultAlbumCover.jpg" alt="Album Cover: {{album.name}}" class="pointer-events-none object-cover group-hover:opacity-75" />
-    <button type="button" class="absolute inset-0 focus:outline-none">
-      <span class="sr-only">View details for {{album.name}}</span>
-    </button>
+<li class="">
+  <div class="group h-[550px] [perspective:1000px]">
+    <div class="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+      <div class="absolute h-full w-full [backface-visibility:hidden]">
+        <div class="group block overflow-hidden rounded-lg bg-gray-100">
+          <img src="assets/images/defaultAlbumCover.jpg" alt="Album Cover: {{album.name}}" class="group-hover:opacity-75" />
+        </div>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{album.name}}</p>
+        <p class="pointer-events-none block text-sm font-medium text-gray-500">{{averageRating}}</p>
+      </div>
+      <div class="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{album.name}}</p>
+        <p class="pointer-events-none block text-sm font-medium text-gray-500">{{averageRating}}</p>
+      </div>
+    </div>
   </div>
-  <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{album.name}}</p>
-  <p class="pointer-events-none block text-sm font-medium text-gray-500">{{averageRating}}</p>
+
 </li>
