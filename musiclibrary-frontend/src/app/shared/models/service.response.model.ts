@@ -1,4 +1,4 @@
-export interface ServiceResponseModel {
+export interface ServiceResponse {
   success: boolean;
   message: string;
 }
