@@ -1,0 +1,7 @@
+<div class="flex place-content-center mt-20">
+  <ul class="w-3/4 grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-4 text-center">
+    <ng-container *ngFor="let album of albums | async">
+      <app-album [album]="album"/>
+    </ng-container>
+  </ul>
+</div>
