@@ -20,19 +20,10 @@ export class CreateAlbumComponent {
     numberOfSongs: [null, Validators.required],
     genre: ['', Validators.required],
     description: [''],
-    image: ''
+    image: ['']
   });
 
   public createAlbum(): void {
-    //Todo create request
-    // this.albumForm.get('name')?.value ?? '';
-    // this.albumForm.get('artist')?.value ?? '';
-    // this.albumForm.get('releaseDate')?.value ?? '';
-    // this.albumForm.get('numberOfSongs')?.value ?? '';
-    // this.albumForm.get('genre')?.value ?? '';
-    // this.albumForm.get('description')?.value ?? '';
-    // this.album.ratings = this.albumForm.get('ratings')?.value ?? '';
-    // this.album.image = this.albumForm.get('image')?.value ?? '';
   }
 
   public getValueofGenre(genre: string) {
