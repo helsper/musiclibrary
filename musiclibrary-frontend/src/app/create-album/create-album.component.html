@@ -2,9 +2,7 @@
   <mat-icon (click)="createAlbum()" class="self-end hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">add_circle_outline</mat-icon>
   <span class="my-3 mt-2 mb-5 truncate text-xl font-medium text-gray-900">Add new Album</span>
 
-
-
-  <form [formGroup]="albumForm">
+  <form [formGroup]="albumForm" class="grid grid-cols-2 gap-1">
     <mat-form-field>
       <input matInput placeholder="Album Name" formControlName="name">
     </mat-form-field>
@@ -24,20 +22,24 @@
     <mat-form-field>
       <mat-label>Genre</mat-label>
       <mat-select formControlName="genre">
-        <ng-container *ngFor="let genre of genres">
-          <mat-option [value]="genre">
-            {{ genre }}
-          </mat-option>
-        </ng-container>
+        <mat-option *ngFor="let genre of genres" [value]="getValueofGenre(genre)">{{ genre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Rating</mat-label>
+      <mat-select formControlName="genre">
+        <mat-option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</mat-option>
       </mat-select>
     </mat-form-field>
 
 
+<!--    Todo letzten zwei inputs je eine spalte -->
+    <label for="myfile">Select a file:</label>
+    <input type="file" id="myfile" name="myfile">
+
     <mat-form-field>
       <textarea matInput placeholder="Description" formControlName="description"></textarea>
     </mat-form-field>
-
-
   </form>
-
 </div>
