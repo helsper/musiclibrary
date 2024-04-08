@@ -11,19 +11,19 @@
             <img src="assets/images/defaultAlbumCover.jpg" alt="{{album.name}} has no album cover" class="group-hover:opacity-75" />
           </ng-template>
         </div>
-        <span class="mt-5 truncate text-sm font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
-        <span class="text-sm font-medium text-gray-500">{{averageRating}}</span>
+        <span class="mt-5 text-lg font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
+        <span class="text-md font-medium text-gray-500">{{averageRating}}</span>
       </div>
       <div class="flex flex-col items-start absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-300 rounded-lg p-4">
-        <mat-icon (click)="deleteAlbum()" class="self-end hover:cursor-pointer">delete_outline</mat-icon>
-        <span class="my-3mt-2 mb-5  truncate text-xl font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
+        <mat-icon (click)="deleteAlbum()" class="self-end hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">delete_outline</mat-icon>
+        <span class="my-3mt-2 mb-5 truncate text-xl font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
         <span class="my-3 text-lg font-medium text-gray-500">{{averageRating}}</span>
         <div class="my-3">
           <div class="text-left text-lg font-medium text-gray-500">Description</div>
           <span class="text-lg font-medium text-gray-500">{{album.description}}</span>
         </div>
         <div class="my-3 text-left">
-          <div class="text-lg font-medium text-gray-500">Genre:</div>
+          <div class="text-lg font-medium text-gray-500">Genre</div>
           <span class="text-lg font-medium text-gray-500">{{genre}}</span>
         </div>
         <div class="my-3 text-left">

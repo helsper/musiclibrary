@@ -1,7 +1,6 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {AlbumService} from "./shared/services/album.service";
 import {Album} from "./shared/models/album.model";
-import {Observable, of, Subject, takeUntil, tap} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {AlbumStorage} from "./shared/storage/album-storage";
 
 @Component({
@@ -14,8 +13,9 @@ export class AppComponent implements OnInit, OnDestroy {
   private albumStorage: AlbumStorage = inject(AlbumStorage);
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  public albums: Album[] = [];
   public readonly title = 'musiclibrary-frontend';
+  public albums: Album[] = [];
+  public showIcon: boolean = true;
 
   public ngOnInit(): void {
     this.getAllAlbums();
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  public addAlbum() {
-
+  public addNewAlbum():void {
+    this.showIcon = false;
   }
 }

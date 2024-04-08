@@ -1,0 +1,43 @@
+<div class="flex flex-col w-full h-full p-4">
+  <mat-icon (click)="createAlbum()" class="self-end hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">add_circle_outline</mat-icon>
+  <span class="my-3 mt-2 mb-5 truncate text-xl font-medium text-gray-900">Add new Album</span>
+
+
+
+  <form [formGroup]="albumForm">
+    <mat-form-field>
+      <input matInput placeholder="Album Name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Artist" formControlName="artist">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="date" placeholder="Release Date" formControlName="releaseDate">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Number of Songs" formControlName="numberOfSongs">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Genre</mat-label>
+      <mat-select formControlName="genre">
+        <ng-container *ngFor="let genre of genres">
+          <mat-option [value]="genre">
+            {{ genre }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+
+
+  </form>
+
+</div>

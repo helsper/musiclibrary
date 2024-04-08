@@ -1,8 +1,6 @@
 import {Component, inject, Input, OnDestroy} from '@angular/core';
 import {Album} from "../shared/models/album.model";
-import {AlbumService} from "../shared/services/album.service";
-import {Subject, takeUntil} from "rxjs";
-import {ServiceResponse} from "../shared/models/service.response.model";
+import {Subject} from "rxjs";
 import {AlbumStorage} from "../shared/storage/album-storage";
 import {Genre} from "../shared/models/genre.enum";
 
@@ -36,6 +34,6 @@ export class AlbumComponent implements OnDestroy {
   }
 
   get genre(): string {
-    return Genre.EDM
+    return this.album.genre;
   }
 }
