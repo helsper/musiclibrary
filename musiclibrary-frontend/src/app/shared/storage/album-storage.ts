@@ -3,6 +3,7 @@ import {Observable, ReplaySubject, Subject, take, takeUntil} from "rxjs";
 import {Album} from "../models/album.model";
 import {AlbumService} from "../services/album.service";
 import {ServiceResponse} from "../models/service.response.model";
+import {AlbumForm} from "../models/albumForm.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class AlbumStorage implements OnDestroy {
       .pipe(takeUntil(this._onDestroy))
       .subscribe((response: ServiceResponse) => {
         if (response.success) {
-          this.removeAlbomFromArray(id);
+          this.removeAlbumFromArray(id);
           console.log(response.message);
         } else {
           console.log(response.message);
@@ -37,7 +38,7 @@ export class AlbumStorage implements OnDestroy {
       })
   }
 
-  private removeAlbomFromArray(id: number) {
+  private removeAlbumFromArray(id: number) {
     for (let i = 0; i < this.albums.length; i++) {
       if (this.albums[i].id === id) {
         this.albums.splice(i, 1);
@@ -56,5 +57,17 @@ export class AlbumStorage implements OnDestroy {
 
   public getAllAlbums(): void {
     this.updateAlbums(this.albumService.getAllAlbums());
+  }
+
+  public createAlbum(albumForm: AlbumForm): void {
+
+    this.albumService.createAlbum(albumForm)
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((newAlbum: Album) => this.addAlbumtoStorage(newAlbum));
+  }
+
+  private addAlbumtoStorage(album: Album): void {
+    this.albums.push(album);
+    this.$albums.next(this.albums);
   }
 }

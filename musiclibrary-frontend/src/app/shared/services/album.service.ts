@@ -4,6 +4,7 @@ import {RestService} from "./rest.service";
 import {Observable} from "rxjs";
 import {Album} from "../models/album.model";
 import {ServiceResponse} from "../models/service.response.model";
+import {AlbumForm} from "../models/albumForm.model";
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class AlbumService {
 
   public deleteAlbumById(id: number): Observable<ServiceResponse> {
     return this.restService.delete(`${this.serviceUrl}${this.albums}/${id}`);
+  }
+
+  public createAlbum(albumForm: AlbumForm): Observable<Album> {
+    return this.restService.post<Album>(`${this.serviceUrl}${this.albums}`, albumForm);
   }
 }

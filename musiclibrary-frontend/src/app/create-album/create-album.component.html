@@ -28,15 +28,16 @@
 
     <mat-form-field>
       <mat-label>Rating</mat-label>
-      <mat-select formControlName="genre">
+      <mat-select formControlName="rating">
         <mat-option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</mat-option>
       </mat-select>
     </mat-form-field>
 
 
 <!--    Todo letzten zwei inputs je eine spalte -->
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile">
+    <input type="file">
+
+
 
     <mat-form-field>
       <textarea matInput placeholder="Description" formControlName="description"></textarea>
