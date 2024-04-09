@@ -4,7 +4,7 @@
       <div class="flex flex-col absolute h-full w-full [backface-visibility:hidden] bg-gray-300 rounded-lg">
         <div class="group rounded-t-lg overflow-hidden bg-gray-100">
           <ng-container *ngIf="album.image; else defaultImage">
-            <img src="" alt="Album Cover: {{album.name}}" class="group-hover:opacity-75" />
+            <img src="data:image/jpeg;base64,{{album.image}}" alt="Album Cover: {{album.name}}" class="group-hover:opacity-75" />
           </ng-container>
 
           <ng-template #defaultImage>

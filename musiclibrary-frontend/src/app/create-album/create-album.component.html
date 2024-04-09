@@ -1,46 +1,44 @@
 <div class="flex flex-col w-full h-full p-4">
-  <mat-icon (click)="createAlbum()" class="self-end hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">add_circle_outline</mat-icon>
+  <mat-icon (click)="createAlbum()" class="self-end hover:cursor-pointer">add_circle_outline</mat-icon>
   <span class="my-3 mt-2 mb-5 truncate text-xl font-medium text-gray-900">Add new Album</span>
 
-  <form [formGroup]="albumForm" class="grid grid-cols-2 gap-1">
-    <mat-form-field>
-      <input matInput placeholder="Album Name" formControlName="name">
-    </mat-form-field>
+  <form [formGroup]="albumForm" class="h-full">
+    <div class="h-full grid grid-cols-2 grid-rows-[auto_auto_auto_1fr_auto] gap-1">
+      <mat-form-field>
+        <input matInput placeholder="Album Name" formControlName="name">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Artist" formControlName="artist">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Artist" formControlName="artist">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput type="date" placeholder="Release Date" formControlName="releaseDate">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput type="date" placeholder="Release Date" formControlName="releaseDate">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput type="number" placeholder="Number of Songs" formControlName="numberOfSongs">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Number of Songs" formControlName="numberOfSongs">
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Genre</mat-label>
-      <mat-select formControlName="genre">
-        <mat-option *ngFor="let genre of genres" [value]="getValueofGenre(genre)">{{ genre }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre">
+          <mat-option *ngFor="let genre of genres" [value]="getValueofGenre(genre)">{{ genre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Rating</mat-label>
-      <mat-select formControlName="rating">
-        <mat-option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Rating</mat-label>
+        <mat-select formControlName="rating">
+          <mat-option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
+      <mat-form-field class="w-full col-span-2">
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field>
 
-<!--    Todo letzten zwei inputs je eine spalte -->
-    <input type="file">
-
-
-
-    <mat-form-field>
-      <textarea matInput placeholder="Description" formControlName="description"></textarea>
-    </mat-form-field>
+      <input class="w-full col-span-2" type="file" (change)="onFileSelected($event)">
+    </div>
   </form>
 </div>

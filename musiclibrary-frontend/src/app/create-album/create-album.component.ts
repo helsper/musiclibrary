@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Genre} from "../shared/models/genre.enum";
 import {AlbumForm} from "../shared/models/albumForm.model";
 import {AlbumStorage} from "../shared/storage/album-storage";
-import {AlbumService} from "../shared/services/album.service";
+
 
 @Component({
   selector: 'app-create-album',
@@ -26,7 +26,6 @@ export class CreateAlbumComponent {
     genre: ['', Validators.required],
     description: [''],
     rating:[null],
-    image: [null]
   });
 
   public createAlbum(): void {
@@ -38,7 +37,8 @@ export class CreateAlbumComponent {
     this.albumFormModel.description = this.albumForm.get('description')?.value ?? '';
     this.albumFormModel.ratings = [this.albumForm.get('rating')?.value] ?? null;
 
-    this.albumStorage.createAlbum(this.albumFormModel);
+        console.log(this.albumFormModel);
+        this.albumStorage.createAlbum(this.albumFormModel);
   }
 
   public getValueofGenre(genre: string) {
@@ -49,5 +49,25 @@ export class CreateAlbumComponent {
       }
     }
     return '';
+  }
+
+  public onFileSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0 && inputElement.files[0]) {
+      this.getBase64(inputElement.files[0]).then((base64String: string) => {
+        this.albumFormModel.image = base64String.replace("data:image/jpeg;base64,", "");
+        console.log(this.albumFormModel);
+      });
+    }
+    this.albumFormModel.image = '';
+  }
+
+  private async getBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader: FileReader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
   }
 }
