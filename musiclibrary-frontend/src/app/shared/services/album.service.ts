@@ -28,4 +28,8 @@ export class AlbumService {
   public createAlbum(albumForm: AlbumForm): Observable<Album> {
     return this.restService.post<Album>(`${this.serviceUrl}${this.albums}`, albumForm);
   }
+
+  public updateAlbumById(album: Album): Observable<Album> {
+    return this.restService.put<Album>(`${this.serviceUrl}${this.albums}/${album.id}`, album);
+  }
 }

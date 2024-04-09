@@ -1,6 +1,6 @@
 <li>
   <div class="group h-[550px] [perspective:1000px]">
-    <div class="relative h-full w-full transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+    <div class="relative h-full w-full transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] delay-200">
       <div class="flex flex-col absolute h-full w-full [backface-visibility:hidden] bg-gray-300 rounded-lg">
         <div class="group rounded-t-lg overflow-hidden bg-gray-100">
           <ng-container *ngIf="album.image; else defaultImage">
@@ -14,27 +14,50 @@
         <span class="mt-5 text-lg font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
         <span class="text-md font-medium text-gray-500">{{averageRating}}</span>
       </div>
-      <div class="flex flex-col items-start absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-300 rounded-lg p-4">
-        <mat-icon (click)="deleteAlbum()" class="self-end hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">delete_outline</mat-icon>
-        <span class="my-3mt-2 mb-5 truncate text-xl font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
-        <span class="my-3 text-lg font-medium text-gray-500">{{averageRating}}</span>
+      <div class="flex flex-col absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-300 rounded-lg p-4">
+
+        <div class="flex flex-row w-full justify-between">
+          <mat-icon (click)="toggleUpdateModal()" class="hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">edit</mat-icon>
+          <mat-icon (click)="deleteAlbum()" class="hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">delete_outline</mat-icon>
+        </div>
+
+        <span class="my-3 text-center mb-5 truncate text-xl font-medium text-gray-900">{{album.name}} - {{album.artist}}</span>
+
+        <div class="text-left border-b-2 border-gray-400">
+          <span class="my-3 text-lg font-medium text-gray-500">{{detailedRating}}</span>
+          <div class="my-3">
+            <div class="text-lg font-medium text-gray-500">Description</div>
+            <span class="text-md font-medium text-gray-500">{{album.description}}</span>
+          </div>
+          <div class="my-3">
+            <div class="text-lg font-medium text-gray-500">Genre</div>
+            <span class="text-md font-medium text-gray-500">{{genre}}</span>
+          </div>
+          <div class="my-3">
+            <div class="text-lg font-medium text-gray-500">Number Of Songs</div>
+            <span class="text-md font-medium text-gray-500">{{album.numberOfSongs}}</span>
+          </div>
+          <div class="my-3">
+            <div class="text-lg font-medium text-gray-500">Release Date</div>
+            <span class="text-md font-medium text-gray-500">{{album.releaseDate | date}}</span>
+          </div>
+        </div>
+
         <div class="my-3">
-          <div class="text-left text-lg font-medium text-gray-500">Description</div>
-          <span class="text-lg font-medium text-gray-500">{{album.description}}</span>
-        </div>
-        <div class="my-3 text-left">
-          <div class="text-lg font-medium text-gray-500">Genre</div>
-          <span class="text-lg font-medium text-gray-500">{{genre}}</span>
-        </div>
-        <div class="my-3 text-left">
-          <div class="text-lg font-medium text-gray-500">Number Of Songs</div>
-          <span class="text-lg font-medium text-gray-500">{{album.numberOfSongs}}</span>
-        </div>
-        <div class="my-3 text-left">
-          <div class="text-lg font-medium text-gray-500">Release Date</div>
-          <span class="text-lg font-medium text-gray-500">{{album.releaseDate | date}}</span>
+          <span class="text-lg font-medium text-gray-500">Rate this album</span>
+          <div class="text-gray-500">
+            <mat-icon (click)="rateAlbum(1)" class="rating-size hover:text-blue-400 hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">looks_one</mat-icon>
+            <mat-icon (click)="rateAlbum(2)" class="rating-size hover:text-blue-400 hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">looks_two</mat-icon>
+            <mat-icon (click)="rateAlbum(3)" class="rating-size hover:text-blue-400 hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">looks_3</mat-icon>
+            <mat-icon (click)="rateAlbum(4)" class="rating-size hover:text-blue-400 hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">looks_4</mat-icon>
+            <mat-icon (click)="rateAlbum(5)" class="rating-size hover:text-blue-400 hover:cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">looks_5</mat-icon>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </li>
+
+<ng-container *ngIf="showUpdateModal">
+  <app-update-album [album]="album" (abortUpdateEvent)="toggleUpdateModal()" />
+</ng-container>

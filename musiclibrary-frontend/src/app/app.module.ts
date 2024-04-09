@@ -12,12 +12,14 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
+import { UpdateAlbumComponent } from './update-album/update-album.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlbumComponent,
-    CreateAlbumComponent
+    CreateAlbumComponent,
+    UpdateAlbumComponent
   ],
   imports: [
     BrowserModule,

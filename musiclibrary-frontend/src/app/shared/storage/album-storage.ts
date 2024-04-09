@@ -60,7 +60,6 @@ export class AlbumStorage implements OnDestroy {
   }
 
   public createAlbum(albumForm: AlbumForm): void {
-
     this.albumService.createAlbum(albumForm)
       .pipe(takeUntil(this._onDestroy))
       .subscribe((newAlbum: Album) => this.addAlbumtoStorage(newAlbum));
@@ -68,6 +67,22 @@ export class AlbumStorage implements OnDestroy {
 
   private addAlbumtoStorage(album: Album): void {
     this.albums.push(album);
+    this.$albums.next(this.albums);
+  }
+
+  public updateAlbumById(album: Album): void {
+    this.albumService.updateAlbumById(album)
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((updatedAlbum: Album) => this.updateAlbumInStorage(updatedAlbum));
+  }
+
+  public updateAlbumInStorage(updatedAlbum: Album): void {
+    for (let i = 0; i < this.albums.length; i++) {
+      if (this.albums[i].id === updatedAlbum.id) {
+        this.albums[i] = updatedAlbum;
+      }
+    }
+
     this.$albums.next(this.albums);
   }
 }

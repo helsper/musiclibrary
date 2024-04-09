@@ -2,7 +2,6 @@ import {Component, inject, Input, OnDestroy} from '@angular/core';
 import {Album} from "../shared/models/album.model";
 import {Subject} from "rxjs";
 import {AlbumStorage} from "../shared/storage/album-storage";
-import {Genre} from "../shared/models/genre.enum";
 
 @Component({
   selector: 'app-album',
@@ -16,10 +15,15 @@ export class AlbumComponent implements OnDestroy {
 
   @Input()
   public album!: Album;
+  public showUpdateModal: boolean = false;
 
   public ngOnDestroy(): void {
     this._onDestroy.next();
     this._onDestroy.complete();
+  }
+
+  get genre(): string {
+    return this.album.genre;
   }
 
   get averageRating(): string {
@@ -29,11 +33,23 @@ export class AlbumComponent implements OnDestroy {
     return `rating ${(sum / this.album.ratings.length).toFixed(1)}`;
   }
 
+  get detailedRating(): string {
+    if (this.album.ratings.length === 0) return 'no rating';
+
+    const sum: number = this.album.ratings.reduce((accumulator: number, currentRating: number) => accumulator + currentRating, 0);
+    return `${this.album.ratings.length} rating(s) with average of ${(sum / this.album.ratings.length).toFixed(1)}`;
+  }
+
   public deleteAlbum(): void {
     this.albumStorage.deleteAlbumById(this.album.id);
   }
 
-  get genre(): string {
-    return this.album.genre;
+  public toggleUpdateModal(): void {
+    this.showUpdateModal = !this.showUpdateModal
+  }
+
+  public rateAlbum(number: number): void {
+    this.album.ratings.push(number);
+    this.albumStorage.updateAlbumById(this.album);
   }
 }
