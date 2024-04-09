@@ -47,7 +47,7 @@ public class Album {
     List<Integer> ratings;
 
     @Lob
-    @Column(name = "image", columnDefinition = "BLOB")
+    @Column(name = "image", columnDefinition = "LONGBLOB")
     byte[] image;
 
     @CreationTimestamp
