@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Genre} from "../shared/models/genre.enum";
 import {AlbumForm} from "../shared/models/albumForm.model";
 import {AlbumStorage} from "../shared/storage/album-storage";
@@ -11,6 +11,9 @@ import {AlbumStorage} from "../shared/storage/album-storage";
   styleUrls: ['./create-album.component.scss']
 })
 export class CreateAlbumComponent {
+
+  @Output()
+  abortCreateEvent: EventEmitter<void> = new EventEmitter<void>();
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private albumStorage: AlbumStorage = inject(AlbumStorage);
@@ -25,7 +28,8 @@ export class CreateAlbumComponent {
     numberOfSongs: [null, Validators.required],
     genre: ['', Validators.required],
     description: [''],
-    rating:[null],
+    rating: [null],
+    image: ['']
   });
 
   public createAlbum(): void {
@@ -36,9 +40,12 @@ export class CreateAlbumComponent {
     this.albumFormModel.genre = this.albumForm.get('genre')?.value ?? '';
     this.albumFormModel.description = this.albumForm.get('description')?.value ?? '';
     this.albumFormModel.ratings = [this.albumForm.get('rating')?.value] ?? null;
+    this.albumFormModel.image = this.albumForm.get('image')?.value ?? null;
 
-        console.log(this.albumFormModel);
-        this.albumStorage.createAlbum(this.albumFormModel);
+    this.albumStorage.createAlbum(this.albumFormModel);
+
+    this.abortCreate();
+    this.albumForm.reset();
   }
 
   public getValueofGenre(genre: string) {
@@ -55,11 +62,13 @@ export class CreateAlbumComponent {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0 && inputElement.files[0]) {
       this.getBase64(inputElement.files[0]).then((base64String: string) => {
-        this.albumFormModel.image = base64String.replace("data:image/jpeg;base64,", "");
-        console.log(this.albumFormModel);
+        this.albumForm.get('image')?.setValue(base64String.replace("data:image/jpeg;base64,", ""));
       });
     }
-    this.albumFormModel.image = '';
+  }
+
+  public abortCreate(): void {
+    this.abortCreateEvent.emit();
   }
 
   private async getBase64(file: File): Promise<string> {

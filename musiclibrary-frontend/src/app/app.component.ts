@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  public addNewAlbum():void {
-    this.showIcon = false;
+  public toggleShow() {
+    this.showIcon = !this.showIcon;
   }
 }

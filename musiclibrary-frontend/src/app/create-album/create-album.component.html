@@ -1,5 +1,9 @@
 <div class="flex flex-col w-full h-full p-4">
-  <mat-icon (click)="createAlbum()" class="self-end hover:cursor-pointer">add_circle_outline</mat-icon>
+  <div class="flex flex-row justify-between">
+    <mat-icon (click)="abortCreate()" class="hover:cursor-pointer">arrow_back</mat-icon>
+    <mat-icon (click)="createAlbum()" class="hover:cursor-pointer">add_circle_outline</mat-icon>
+  </div>
+
   <span class="my-3 mt-2 mb-5 truncate text-xl font-medium text-gray-900">Add new Album</span>
 
   <form [formGroup]="albumForm" class="h-full">
@@ -38,7 +42,10 @@
         <textarea matInput placeholder="Description" formControlName="description"></textarea>
       </mat-form-field>
 
-      <input class="w-full col-span-2" type="file" (change)="onFileSelected($event)">
+      <label class="w-full col-span-2 flex flex-col text-left">
+        <span class="text-md font-medium text-gray-500">Album Cover</span>
+        <input class="" type="file" (change)="onFileSelected($event)">
+      </label>
     </div>
   </form>
 </div>

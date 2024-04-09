@@ -1,15 +1,16 @@
 <div class="flex place-content-center mt-20">
-  <ul class="w-3/4 grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-4 text-center">
-    <li (click)="addNewAlbum()" class="h-[550px] content-center bg-gray-300 rounded-lg transition ease-in-out delay-150 hover:cursor-pointer hover:-translate-y-1 hover:scale-105 focus-within:-translate-y-1 focus-within:scale-105 duration-300">
+  <ul class="w-3/4 grid grid-cols-1 gap-10 md:grid-cols-4 text-center">
+    <li class="h-[550px] content-center bg-gray-300 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 focus-within:-translate-y-1 focus-within:scale-105 duration-300">
       <ng-container *ngIf="showIcon; else addAlbum">
-        <mat-icon class="icon-size">add_circle</mat-icon>
+        <mat-icon (click)="toggleShow()" class="icon-size hover:cursor-pointer">add_circle</mat-icon>
       </ng-container>
-      <ng-template #addAlbum>
-        <app-create-album></app-create-album>
-      </ng-template>
     </li>
     <ng-container *ngFor="let album of albums">
       <app-album [album]="album"/>
     </ng-container>
   </ul>
 </div>
+
+<ng-template #addAlbum>
+  <app-create-album (abortCreateEvent)="toggleShow()"/>
+</ng-template>
